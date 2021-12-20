@@ -6,15 +6,26 @@
 </head>  
 <body>  
 <h2>Welcome to Django!!!</h2>  
+<form action='logout/' method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Logout"/>
+</form>
+<h2>Your questions:</h2>
 {% if latest_question_list %}
     <ul>
     {% for question in latest_question_list %}
     <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    <form action='delete/' method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{question.id}}" />
+        <input type="submit" value="Delete"/>
+    </form>
     {% endfor %}
     </ul>
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
+
 </body>  
 </html>  
 

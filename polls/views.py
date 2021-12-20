@@ -1,13 +1,21 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import Choice, Question
 
+def deleteView(request):
+	q = Question.objects.get(pk=request.POST.get('id'))
+	if 1 == 1:
+		q.delete()
+	return redirect('/polls/')
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    questions = Question.objects.filter(owner=request.user)
+    latest_question_list = questions.order_by('-pub_date')[:5]
+    
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
 
@@ -16,8 +24,8 @@ def detail(request, question_id):
     return render(request, 'polls/detail.html', {'question': question})
     
 def results(request, question_id):
-    response = "You're looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/results.html', {'question': question})
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
