@@ -7,7 +7,6 @@
 <body>  
 <h2>Welcome to Django!!!</h2>  
 <h2>Add new question</h2>
- {% csrf_token %}
 <form action="{% url 'polls:add' %}" method="get">
     
             <span>Question:</span><br/>

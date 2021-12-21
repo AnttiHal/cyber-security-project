@@ -22,7 +22,7 @@ def add(request):
 
 def index(request):
     questions = Question.objects.filter(owner=request.user)
-    latest_question_list = questions.order_by('-pub_date')[:5]
+    latest_question_list = questions.order_by('-pub_date')[:10]
     print()
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
