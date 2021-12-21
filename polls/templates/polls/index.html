@@ -6,10 +6,15 @@
 </head>  
 <body>  
 <h2>Welcome to Django!!!</h2>  
-<form action='logout/' method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Logout"/>
-</form>
+<h2>Add new question</h2>
+ {% csrf_token %}
+<form action="{% url 'polls:add' %}" method="get">
+    
+            <span>Question:</span><br/>
+            <input id="question_text" type="text" name="question_text"/><br/>
+            <input type="submit" value="Add"/>
+        </form>
+
 <h2>Your questions:</h2>
 {% if latest_question_list %}
     <ul>
@@ -25,7 +30,11 @@
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
-
+<br>
+<form action='logout/' method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Logout"/>
+</form>
 </body>  
 </html>  
 

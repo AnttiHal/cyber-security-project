@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/polls/'
-SESSION_COOKIE_SAMESITE = None
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
